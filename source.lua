@@ -1357,36 +1357,60 @@ function initLibrary()
                         Font = Enum.Font.Gotham,
                         Parent = slider
                     })
-
-
+                    
+                    -- ▼▼ MODERN & ROUNDED TOGGLE ▼▼
                     local toggle = utility.create("TextButton", {
-                        Size = UDim2.new(1, 0, 0, 16),
-                        BackgroundTransparency = 1,
-                        BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-                        FontSize = Enum.FontSize.Size14,
-                        TextSize = 14,
-                        TextColor3 = Color3.fromRGB(0, 0, 0),
-                        Font = Enum.Font.SourceSans,
+                        Size = UDim2.new(1, 0, 0, 20),
+                        BackgroundColor3 = Color3.fromRGB(35, 35, 35),
+                        AutoButtonColor = false,
+                        BorderSizePixel = 0,
+                        Text = "",
                         Parent = toggleSliderHolder
                     })
                     
-                    local icon = utility.create("TextButton", {
-                        ZIndex = 3,
-                        Size = UDim2.new(0, 14, 1, -2),
-                        BorderColor3 = Color3.fromRGB(37, 37, 37),
-                        Position = UDim2.new(0, 0, 0, 1),
-                        BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-                        Text = "",
+                    utility.create("UICorner", {
+                        CornerRadius = UDim.new(0, 6),
                         Parent = toggle
+                    })
+                    
+                    utility.create("UIStroke", {
+                        Color = Color3.fromRGB(60, 60, 60),
+                        Thickness = 1,
+                        ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+                        Parent = toggle
+                    })
+                    
+                    local icon = utility.create("Frame", {
+                        ZIndex = 3,
+                        Size = UDim2.new(0, 18, 1, -4),
+                        Position = UDim2.new(0, 2, 0, 2),
+                        BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+                        Parent = toggle
+                    })
+                    
+                    utility.create("UICorner", {
+                        CornerRadius = UDim.new(1, 0),
+                        Parent = icon
                     })
                     
                     local iconGradient = utility.create("UIGradient", {
                         Rotation = 90,
                         Color = ColorSequence.new{
-                            ColorSequenceKeypoint.new(0, Color3.fromRGB(32, 32, 32)), 
-                            ColorSequenceKeypoint.new(1, Color3.fromRGB(17, 17, 17))
+                            ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)), 
+                            ColorSequenceKeypoint.new(1, Color3.fromRGB(220, 220, 220))
                         },
                         Parent = icon
+                    })
+                    
+                    local shadow = utility.create("ImageLabel", {
+                        ZIndex = 2,
+                        Size = UDim2.new(0, 24, 1, 2),
+                        Position = UDim2.new(0, 0, 0, 1),
+                        BackgroundTransparency = 1,
+                        Image = "rbxassetid://1316045217",
+                        ImageTransparency = 0.7,
+                        ImageColor3 = Color3.fromRGB(0, 0, 0),
+                        Parent = toggle
                     })
                     
                     local toggleTitle = utility.create("TextLabel", {
@@ -1403,19 +1427,17 @@ function initLibrary()
                         TextXAlignment = Enum.TextXAlignment.Left,
                         Parent = icon
                     })
-
-
+                    -- ▲▲ END MODERN TOGGLE ▲▲
+                    
                     local function toggleToggle()
                         toggled = not toggled
-
-
+                    
                         if toggled then
                             table.insert(coloredGradients, iconGradient)
                         else
                             table.remove(coloredGradients, table.find(coloredGradients, iconGradient))
                         end
-
-
+                    
                         local textColor = toggled and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(180, 180, 180)
                         local gradientColor
                         if toggled then
@@ -1429,22 +1451,19 @@ function initLibrary()
                                 ColorSequenceKeypoint.new(1, Color3.fromRGB(17, 17, 17))
                             }
                         end
-
-
+                    
                         iconGradient.Color = gradientColor
                         toggleTitle.TextColor3 = textColor
-
-
+                    
                         if toggleFlag then
                             library.flags[toggleFlag] = toggled
                         end
-
-
+                    
                         toggleCallback(toggled)
                     end
-
-
+                    
                     toggle.MouseButton1Click:Connect(toggleToggle)
+                    
 
 
                     local function slide(input)
